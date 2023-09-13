@@ -76,7 +76,7 @@ helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx
 --set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-backend-protocol"=tcp
 --set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled"=true
 --set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-nlb-target-type"=ip
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-internal"=false
+--set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-scheme"=internal
 --set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol"=TCP
 --set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-healthcheck-path"=/healthz
 --set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-healthcheck-port"=10254
