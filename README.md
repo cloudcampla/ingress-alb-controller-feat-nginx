@@ -82,3 +82,57 @@ helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --namespace ing
 
 [Annotations for Service AWS LB Controller
 ](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.5/guide/service/annotations/)
+
+
+## 7. Ejemplos de Ingress ALB y Nginx:
+
+ALB:
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-2048
+  namespace: game-2048
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: service-2048
+                port:
+                  number: 80
+```
+
+NGINX:
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingres-2048-nginx
+  namespace: game-2048
+annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: service-2048
+                port:
+                  number: 80
+          - path: /test
+            pathType: Prefix
+            backend:
+              service:
+                name: service-2048-2
+                port:
+                  number: 80
+```
