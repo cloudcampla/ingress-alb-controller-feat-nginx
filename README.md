@@ -67,25 +67,17 @@ Both the public and private subnets:
 ## 6. Instalar ingress nginx con el soporte para AWS ALB Controller:
 
 ```bash
-helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx
---namespace ingress-nginx
---version 4.7.0
---set controller.service.type=LoadBalancer
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-name"=apps-ingress
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-type"=nlb
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-backend-protocol"=tcp
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled"=true
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-nlb-target-type"=ip
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-scheme"=internal
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol"=TCP
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-healthcheck-path"=/healthz
---set controller.service.annotations."service.beta.kubernetes.io/aws-load-balancer-healthcheck-port"=10254
---set controller.ingressClassResource.default=true
---set controller.metrics.enabled=true
---set controller.metrics.serviceMonitor.enabled=true
---set controller.metrics.serviceMonitor.additionalLabels.release=prometheus
---set controller.podAnnotations."prometheus.io/port"=10254
---set controller.podAnnotations."prometheus.io/scrape"=true
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx \
+  --set controller.service.type=LoadBalancer \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-name"=apps-ingress \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"=nlb \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-backend-protocol"=tcp \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-cross-zone-load-balancing-enabled"=true \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-nlb-target-type"=ip \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-scheme"=internet-facing \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-healthcheck-protocol"=TCP \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-healthcheck-path"=/healthz \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-healthcheck-port"=10254 
 ```
 
 [Annotations for Service AWS LB Controller
